@@ -1,35 +1,30 @@
-(TODO - WILL COME BACK TO LATER)
-
 # Character Creation Web App - Backend
 
-char creaiton wewb app - manaage rpg characater online. creative expression... managing ideas...
-develop skills in dedveloping full stack application from scratch + passion project...
+A web app that allows the user to create a character for a role-playing game, savethat character on the server, and use it in the future while they're playing the game.
+The aim of creating this application is to develop skills in developing a full stack application from scratch as a passion project.
 
-this is a rest driven backend server providing the database persistence and business logic for char creation.
-API developed to be usable and scalable from frontend perspective
-architecture in place to allow for rapid scalable development
+This is a REST driven backend server that provides the business logic and database persistence required for typical character creation.
+The API is developed to be easily read and maintained and to be scalable in the long-term.
 
-This project is a collaboration between x and y and...
-Forked from z.
+This project is a collaboration between:
+Kris W - https://github.com/kristian-welsh
+George H - https://github.com/GeorgeHarland
+
+Forked from https://github.com/kristian-welsh/character-creation-backend
 
 ## Getting Started
 
-These instructions will give you a copy of the project up and running on
-your local machine for development and testing purposes. See deployment
-for notes on deploying the project on a live system.
+These instructions will give you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-mongodb installed
-python + flask
-pip
-docker
-+ versions
-+ links to website
-
-Requirements for the software and other tools to build, test and push 
-- [Example 1](https://www.example.com)
-- [Example 2](https://www.example.com)
+pip         21.3.1
+python      3.9.7
+flask       2.0.2
+flask_cors  3.0.10
+mongodb     5.0.6
+pymongo     4.0.1
+docker      20.10.12
 
 ### Installing
 
