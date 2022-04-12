@@ -6,8 +6,12 @@ The aim of creating this application is to develop skills in developing a full s
 This is a REST driven backend server that provides the business logic and database persistence required for typical character creation.
 The API is developed to be easily read and maintained and to be scalable in the long-term.
 
+The frontend is found here: https://github.com/GeorgeHarland/character-creation-frontend
+
 This project is a collaboration between:
+
 Kris W - https://github.com/kristian-welsh
+
 George H - https://github.com/GeorgeHarland
 
 Forked from https://github.com/kristian-welsh/character-creation-backend
