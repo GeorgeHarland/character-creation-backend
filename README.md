@@ -1,6 +1,6 @@
 # Character Creation Web App - Backend
 
-A web app that allows the user to create a character for a role-playing game, savethat character on the server, and use it in the future while they're playing the game.
+A web app that allows the user to create a character for a role-playing game, save that character on the server, and use it in the future while they're playing the game.
 The aim of creating this application is to develop skills in developing a full stack application from scratch as a passion project.
 
 This is a REST driven backend server that provides the business logic and database persistence required for typical character creation.
