@@ -5,7 +5,10 @@ from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure
 
 # Mongo docker container IP
-IP = "db"
+#IP = "db"
+#PORT = 27017
+
+IP = "localhost"
 PORT = 27017
 
 app = Flask(__name__)
@@ -26,10 +29,12 @@ def endpoint():
         database.connect()
         print("Connected to database")
         print("QQQQQ Starting data query")
-        id = database.store_data("character_name", req_dict["name"])
+        #id = database.store_data("character_name", req_dict["name"])
+        #id2 = database.store_data("character_level", req_dict["level"])
+        id = database.store_data(req_dict)
         print("Finishing data query here")
         print(id)
-        all_contents = database.temp_all_contents()
+        all_contents = database.log_all_data()
         database.disconnect()
         print("Disconnected from database")
     except:
@@ -61,25 +66,41 @@ class CallDatabase:
         except ConnectionFailure:
             print("Database not avaliable")
 
-    def store_data(self, key, value):
+    #def store_data(self, key, value):
+    def store_data(self, req_dict):
         new_cl = self.db["character_sheets"]
         try:
             result = new_cl.insert_one({
-                key: value
+                "character_name": req_dict["name"],
+                "character_level": req_dict["level"]
             })
             return result.inserted_id
+            #name = [{"character_name": req_dict["name"]}]
+            #insert_list = [{"character_name": req_dict["name"], "character_level": req_dict["level"]}]
+            #result = new_cl.insert_many(insert_list)
+            #result = new_cl.insert_one(name)
+            #return result.inserted_ids
         except Exception as e:
             print(e)
             print("Failed to add data to the collection.")
         return -1
 
-    def temp_all_contents(self):
+    def log_all_data(self):
         new_cl = self.db["character_sheets"]
         try:
-            results = new_cl.find()
-            print(results)
-            print(type(results))
+            results = []
+            for result in new_cl.find():
+                results.append(result)
+                print(result)
+                print(type(result))
             return str(results)
+
+
+
+            # results = new_cl.find()
+            # print(results)
+            # print(type(results))
+            # return str(results)
         except Exception as e:
             print(e)
             print("Failed to find data from the collection.")

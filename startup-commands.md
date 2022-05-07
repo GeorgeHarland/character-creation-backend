@@ -33,3 +33,10 @@ docker volume create mountain
 docker compose up -d
 
 docker compose down
+
+# Verify data
+docker exec -ti character-creation-backend-db-1 sh
+mongo
+use app
+db.character_sheets.find()
+

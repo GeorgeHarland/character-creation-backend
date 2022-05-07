@@ -39,7 +39,7 @@ docker compose up
 Running without docker:
 
 pip -r install requirements.txt
-pip -m flask run
+python -m flask run
 
 Then you can start sending REST requests against localhost:5000
 
