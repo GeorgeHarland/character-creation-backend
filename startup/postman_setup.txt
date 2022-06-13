@@ -1,8 +1,0 @@
-Untick Accept header
-
-Add headers:
-Accept		application/json
-Content-Type	application/json
-
-Body: { "name": "bobby" }
-

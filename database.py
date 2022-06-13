@@ -1,5 +1,4 @@
-from pymongo import MongoClient
-from pymongo.errors import ConnectionFailure
+from mongo_connection import MongoConnection
 
 class Database:
     
@@ -7,48 +6,40 @@ class Database:
         self.HOST = "localhost" # non-container IP
         #self.HOST = "db" # Mongo docker container IP
         self.PORT = 27017
-        self.db_name = db_name
+        #self.db_name = db_name # maybe outmoded
 
     def connect(self):
         print("Attempting database connection")
-        self.client = MongoClient(self.HOST, self.PORT)
-        self.verify_connection()
-        self.db = self.client.app
+        self.connection = MongoConnection(self.HOST, self.PORT)
+        connection_stable = self.verify_connection()
+        return connection_stable
 
     def verify_connection(self):
         try:
-            self.client.admin.command('ping')
-            print("Database avaliable")
-        except ConnectionFailure:
-            print("Database not avaliable")
+            self.connection.ping()
+            return True
+        except:
+            # retry connection TODO
+            return False
+
+    def with_connection(self, action):
+        connected = self.connect()
+        if not connected:
+            raise Exception("Failed to connect to the database.")
+        result = action()
+        self.disconnect()
+        return result
 
     def store_data(self, character_sheet):
-        character_collection = self.db["character_sheets"]
-        try:
-            result = character_collection.insert_one({
-                "character_name": character_sheet["name"],
-                "character_level": character_sheet["level"]
-            })
-            print("Data stored with id: " + result.inserted_id)
-            return result.inserted_id
-        except Exception as e:
-            print(e)
-            print("Failed to add data to the collection.")
-        return -1
+        data_entry = {
+            "character_name": character_sheet["name"],
+            "character_level": character_sheet["level"]
+        }
+        return self.connection.store_data("character_sheets", data_entry)
 
     def fetch_all_data(self):
-        character_collection = self.db["character_sheets"]
-        
-        try:
-            character_list = []
-            for character_sheet in character_collection.find():
-                character_list.append(character_sheet)
-            return str(character_list)
-        except Exception as e:
-            print(e)
-            print("Failed to find data from the collection.")
-        return -1
+        return self.connection.fetch_all_data("character_sheets")
 
     def disconnect(self):
-        self.client.close()
+        self.connection.disconnect()
         print("Disconnected from database")
